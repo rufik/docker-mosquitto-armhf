@@ -1,12 +1,16 @@
-FROM container4armhf/armhf-alpine
+FROM resin/armhf-alpine
 
 LABEL Description="Eclipse Mosquitto MQTT Broker for armhf"
 
-RUN apk --no-cache add mosquitto=1.4.15-r0 && \
-    mkdir -p /mosquitto/config /mosquitto/data /mosquitto/log && \
-    cp /etc/mosquitto/mosquitto.conf /mosquitto/config && \
-    chown -R mosquitto:mosquitto /mosquitto
+RUN apk --no-cache add mosquitto mosquitto-clients
 
-COPY docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["/usr/sbin/mosquitto", "-c", "/mosquitto/config/mosquitto.conf"]
+RUN adduser --system --disabled-password --disabled-login mosquitto
+
+COPY config /mqtt/config
+
+RUN [ "cross-build-end" ]
+
+VOLUME ["/mqtt/config", "/mqtt/data"]
+
+EXPOSE 1883 9001
+CMD ["/usr/sbin/mosquitto", "-c", "/mqtt/config/mosquitto.conf"]
