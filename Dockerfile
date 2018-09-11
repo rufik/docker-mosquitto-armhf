@@ -2,6 +2,7 @@ FROM resin/armhf-alpine
 
 LABEL Description="Eclipse Mosquitto MQTT Broker for armhf"
 
+RUN apk update
 RUN apk --no-cache add mosquitto mosquitto-clients
 
 RUN adduser --system --disabled-password --disabled-login mosquitto
