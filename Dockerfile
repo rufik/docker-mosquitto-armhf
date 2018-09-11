@@ -7,7 +7,7 @@ RUN [ "cross-build-start" ]
 RUN apk update
 RUN apk --no-cache add mosquitto mosquitto-clients
 
-RUN adduser --system --disabled-password --disabled-login mosquitto
+RUN adduser -S -D -H mosquitto
 
 COPY config /mqtt/config
 
