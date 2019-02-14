@@ -1,10 +1,9 @@
-FROM alpine:3.9
+FROM balenalib/armv7hf-alpine:3.8
 
 LABEL Description="Eclipse Mosquitto MQTT Broker for armhf"
 
 RUN [ "cross-build-start" ]
 
-RUN apk update
 RUN apk --no-cache add mosquitto mosquitto-clients
 
 RUN [ "cross-build-end" ]
