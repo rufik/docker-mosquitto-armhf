@@ -1,4 +1,4 @@
-FROM resin/armhf-alpine
+FROM alpine:3.9
 
 LABEL Description="Eclipse Mosquitto MQTT Broker for armhf"
 
